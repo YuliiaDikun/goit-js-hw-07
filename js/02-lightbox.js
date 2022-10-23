@@ -20,10 +20,6 @@ const imageMarkup = createGallery(galleryItems);
 galleryEl.insertAdjacentHTML('beforeend', imageMarkup);
 
 const lightbox = new SimpleLightbox('.gallery a',  {
-    'spinner': false,
-    'close': false,
-    'showCounter': false,
-    'nav': false,
     'captionsData': 'alt',
     'captionDelay': 250,
 });
