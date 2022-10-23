@@ -27,12 +27,36 @@ function createGallery () {
 createGallery();
 
 function openGalleryModal (e) {
-e.preventDefault();
-if(e.target.nodeName !=="IMG") {
-    return;
-}
-console.log('this is gallery event');
-console.log(e.target);
+    e.preventDefault();
+    if(e.target.nodeName !== "IMG") {
+        return;
+    }  
+    
+    const imgOnClick = e.target;
+    const src = imgOnClick.src;
+
+    const instance = basicLightbox.create(`${imgOnClick}`);
+        
+    instance.show();
+
+    const lightboxDiv = document.querySelector('.basicLightbox');
+    console.log(lightboxDiv);
+    console.log(lightboxDiv.classList.contains('basicLightbox--visible'));
+
+    if(lightboxDiv.classList.contains('basicLightbox--visible')) {
+            
+        imgOnClick.src = imgOnClick.dataset.source;
+        
+        
+        const lightboxPlaceholder = document.querySelector('.basicLightbox__placeholder');
+    
+        lightboxPlaceholder.style.width = '100vh';
+        lightboxPlaceholder.style.height = '100vh';
+        imgOnClick.style.width = '100vh';
+    
+        lightboxPlaceholder.append(imgOnClick);
+    }
+    
 }
 
 galleryEl.addEventListener('click', openGalleryModal);
