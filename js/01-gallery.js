@@ -5,9 +5,10 @@ console.log(galleryItems);
 
 const galleryEl = document.querySelector('.gallery');
 
-const createGallery = () => {
+function createGallery () {
    const gallery = galleryItems.map(item => {
-   const galleryItem =  `<div class="gallery__item">
+   const galleryItem = 
+    `<div class="gallery__item">
         <a class="gallery__link" href="${item.original}">
         <img
             class="gallery__image"
@@ -16,10 +17,22 @@ const createGallery = () => {
             alt="${item.description}"
         />
         </a>
-  </div>`;
+    </div>`;
   return galleryItem;
    });
 
    galleryEl.innerHTML= gallery.join('');
 }
+
 createGallery();
+
+function openGalleryModal (e) {
+e.preventDefault();
+if(e.target.nodeName !=="IMG") {
+    return;
+}
+console.log('this is gallery event');
+console.log(e.target);
+}
+
+galleryEl.addEventListener('click', openGalleryModal);
