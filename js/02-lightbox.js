@@ -24,6 +24,8 @@ const lightbox = new SimpleLightbox('.gallery a',  {
     'close': false,
     'showCounter': false,
     'nav': false,
+    'captionsData': 'alt',
+    'captionDelay': 250,
 });
 
 
