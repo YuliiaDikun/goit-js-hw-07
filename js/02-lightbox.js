@@ -3,25 +3,22 @@ import { galleryItems } from './gallery-items.js';
 
 const galleryEl = document.querySelector('.gallery');
 
-function createGallery (images) {
-   return images.map(({original, preview, description}) => {
-    return`
+function createGallery(images) {
+  return images
+    .map(({ original, preview, description }) => {
+      return `
     <a class="gallery__item" href="${original}">
         <img class="gallery__image" src="${preview}" alt="${description}" />
     </a>`;
-  
-   })
-   .join('');
-   
+    })
+    .join('');
 }
 
 const imageMarkup = createGallery(galleryItems);
 
 galleryEl.insertAdjacentHTML('beforeend', imageMarkup);
 
-const lightbox = new SimpleLightbox('.gallery a',  {
-    'captionsData': 'alt',
-    'captionDelay': 250,
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
 });
-
-

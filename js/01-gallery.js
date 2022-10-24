@@ -3,9 +3,10 @@ import { galleryItems } from './gallery-items.js';
 
 const galleryEl = document.querySelector('.gallery');
 
-function createGallery (images) {
-   return images.map(({original, preview, description}) => {
-    return`
+function createGallery(images) {
+  return images
+    .map(({ original, preview, description }) => {
+      return `
         <div class="gallery__item">
             <a class="gallery__link" href="${original}">
             <img
@@ -16,46 +17,42 @@ function createGallery (images) {
             />
             </a>
         </div>`;
-  
-   })
-   .join('');
-   
+    })
+    .join('');
 }
 
 const imageMarkup = createGallery(galleryItems);
 
 galleryEl.insertAdjacentHTML('beforeend', imageMarkup);
 
-let isKeyEvent = false;
-
 function createLightBox(img) {
-    const instance = basicLightbox.create(`<img src="${img.dataset.source}">`);
-    
-    instance.show();
-    if(isKeyEvent) {
-        instance.close(); 
-    }   
+  const instance = basicLightbox.create(`<img src="${img.dataset.source}">`, {
+    onShow: instance => {
+      document.addEventListener('keydown', closeFromKeyboard.bind(instance));
+    },
+    onClose: instance => {
+      document.removeEventListener('keydown', closeFromKeyboard.bind(instance));
+    },
+  });
+
+  instance.show();
 }
 
-function openGalleryModal (e) {
-    e.preventDefault();
-    if (e.target.nodeName !== "IMG") {
-        return;
-    }  
-    
-    const imgOnClick = e.target;
-    
-    createLightBox(imgOnClick);   
+function openGalleryModal(e) {
+  e.preventDefault();
+  if (e.target.nodeName !== 'IMG') {
+    return;
+  }
+
+  const imgOnClick = e.target;
+
+  createLightBox(imgOnClick);
 }
 
-function closeFromKeyboard(e) {    
-    if(e.code === 'Escape')  {
-        console.log('this is key event');
-        isKeyEvent = true;               
-    }   
+function closeFromKeyboard(e) {
+  if (e.code === 'Escape') {
+    this.close();
+  }
 }
-
-galleryEl.addEventListener('keydown', closeFromKeyboard);
-
 
 galleryEl.addEventListener('click', openGalleryModal);
